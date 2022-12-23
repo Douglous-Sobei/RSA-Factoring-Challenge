@@ -1,27 +1,12 @@
 #!/usr/bin/python3
-
-import sys
-
-# Function to factorize a number into the product of two smaller numbers
 def factorize(n):
-  # Check if n is even
-  if n % 2 == 0:
-    return 2, n // 2
-  # If n is odd, try dividing it by odd numbers starting from 3
-  for i in range(3, n, 2):
-    if n % i == 0:
-      return i, n // i
-  # If no smaller factors were found, return n and 1
-  return n, 1
+    for i in range(2, int(n ** 0.5) + 1):
+        if n % i == 0:
+            return (i, n // i)
+    return (n, 1)
 
-# Read the file name from the command line
-file = sys.argv[1]
+numbers = [4, 12, 34, 128, 1024, 4958, 1718944270642558716715, 9, 99, 999, 9999, 9797973, 49, 239809320265259]
 
-# Open the file and read the numbers
-with open(file, 'r') as f:
-  for line in f:
-    # Convert the line to an integer and factorize it
-    n = int(line)
+for n in numbers:
     p, q = factorize(n)
-    # Print the factorization
-    print(f"{n} = {p} * {q}")
+    print(f"{n}={p}*{q}")
