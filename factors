@@ -1,10 +1,27 @@
-#!/usr/bin/env bash
-# read from file given as argv[1] ($1) and print factors for each num in file
+#!/usr/bin/python3
 
-FILE=$1
+import sys
 
-while read NUM
-do
-    factors=($(factor $NUM))
-    echo "$NUM=$(($NUM/${factors[1]}))*${factors[1]}"
-done < $FILE
+# Function to factorize a number into the product of two smaller numbers
+def factorize(n):
+  # Check if n is even
+  if n % 2 == 0:
+    return 2, n // 2
+  # If n is odd, try dividing it by odd numbers starting from 3
+  for i in range(3, n, 2):
+    if n % i == 0:
+      return i, n // i
+  # If no smaller factors were found, return n and 1
+  return n, 1
+
+# Read the file name from the command line
+file = sys.argv[1]
+
+# Open the file and read the numbers
+with open(file, 'r') as f:
+  for line in f:
+    # Convert the line to an integer and factorize it
+    n = int(line)
+    p, q = factorize(n)
+    # Print the factorization
+    print(f"{n} = {p} * {q}")
